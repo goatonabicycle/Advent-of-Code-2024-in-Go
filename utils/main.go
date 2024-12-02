@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bufio"
+	"math"
 	"os"
 )
 
@@ -19,4 +20,8 @@ func ReadLines(filename string) ([]string, error) {
 	}
 
 	return lines, scanner.Err()
+}
+
+func Abso(n int) float64 {
+	return math.Abs(float64(n))
 }

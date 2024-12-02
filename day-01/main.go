@@ -3,7 +3,6 @@ package main
 import (
 	"advent-of-code-2024/utils"
 	"fmt"
-	"math"
 	"sort"
 	"strings"
 )
@@ -31,7 +30,7 @@ func main() {
 
 	totalDistance := 0
 	for i, l := range left {
-		totalDistance += int(math.Abs(float64(l - right[i])))
+		totalDistance += int(utils.Abso(l - right[i]))
 	}
 
 	fmt.Println("Sum:", totalDistance)
