@@ -18,6 +18,10 @@ func main() {
 	for _, line := range lines {
 		if isLineSafe(strings.Fields(line)) {
 			totalSafeLines++
+		} else {
+			if isLineSafeWithDampner(strings.Fields(line)) {
+				totalSafeLines++
+			}
 		}
 	}
 
@@ -56,6 +60,25 @@ func isLineSafe(numbers []string) bool {
 	}
 
 	return true
+}
+
+// Part 2
+
+func isLineSafeWithDampner(unsafeNumbers []string) bool {
+	for skipIndex := range unsafeNumbers {
+		newNumbers := make([]string, 0, len(unsafeNumbers)-1)
+		for i, num := range unsafeNumbers {
+			if i != skipIndex {
+				newNumbers = append(newNumbers, num)
+			}
+		}
+
+		if isLineSafe(newNumbers) {
+			return true
+		}
+	}
+
+	return false
 }
 
 // Cool things and learnings:
