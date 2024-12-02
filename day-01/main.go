@@ -35,4 +35,25 @@ func main() {
 	}
 
 	fmt.Println("Sum:", totalDistance)
+
+	// Part 2
+	rightCounts := make(map[int]int)
+	for _, r := range right {
+		rightCounts[r]++
+	}
+
+	totalSimilarity := 0
+	for _, l := range left {
+		totalSimilarity += l * rightCounts[l]
+	}
+
+	fmt.Println("Similarity:", totalSimilarity)
 }
+
+// Cool things and learnings:
+// - strings.Fields is JS's split(" ")
+// - Sscanf parses strings into numbers using the format %d (decimal)
+// - The pointer idea is interesting. Think of & as "put the result in this variable"
+// - Go is a bit weird about math.Abs with floats. Having to typecast to int feels a bit weird. But types!
+// - Go doesn't have a filter function like JS. I could have either made a helper function or just iterate.
+// - Even better, I could use a map to count the occurrences of each number.
