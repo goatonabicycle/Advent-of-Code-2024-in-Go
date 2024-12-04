@@ -14,26 +14,28 @@ func main() {
 	}
 
 	totalValue := 0
-	re := regexp.MustCompile(`mul\((\d{1,3}),(\d{1,3})\)`)
+	enabled := true
+
+	re := regexp.MustCompile(`mul\((\d+),(\d+)\)|don't\(\)|do\(\)`)
 
 	for _, line := range lines {
 		matches := re.FindAllStringSubmatch(line, -1)
-		for _, mul := range matches {
-			fmt.Println("Full match:", mul[0])
-			fmt.Println("Group 1:", mul[1])
-			fmt.Println("Group 2:", mul[2])
 
-			number1, err := strconv.Atoi(mul[1])
-			if err != nil {
-				panic(err)
+		for _, match := range matches {
+			fullMatch := match[0]
+
+			switch {
+			case fullMatch == "don't()":
+				enabled = false
+			case fullMatch == "do()":
+				enabled = true
+			case len(match[1]) > 0:
+				if enabled {
+					num1, _ := strconv.Atoi(match[1])
+					num2, _ := strconv.Atoi(match[2])
+					totalValue += num1 * num2
+				}
 			}
-
-			number2, err := strconv.Atoi(mul[2])
-			if err != nil {
-				panic(err)
-			}
-
-			totalValue += number1 * number2
 		}
 	}
 
